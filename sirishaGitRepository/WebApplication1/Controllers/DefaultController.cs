@@ -11,6 +11,7 @@ namespace WebApplication1.Controllers
         // GET: Default
         public ActionResult Index()
         {
+            ViewBag.Title = "Welcome to my world";
             return View();
         }
     }
