@@ -11,8 +11,15 @@ namespace WebApplication1.Controllers
         // GET: Default
         public ActionResult Index()
         {
-         
-            return View();
+            int a = 2;
+            if (a == 1)
+            {
+                return Redirect("http://www.google.com");
+            }
+            else
+            {
+              return View();
+            }
         }
     }
 }
