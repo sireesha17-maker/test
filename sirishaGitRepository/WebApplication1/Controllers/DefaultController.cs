@@ -21,5 +21,14 @@ namespace WebApplication1.Controllers
               return View();
             }
         }
+
+        public RedirectToRouteResult contact() {
+           return RedirectToAction("GetEmployee", "Employee");
+        }
+
+        public RedirectToRouteResult GetMethodByRoute()
+        {
+            return RedirectToRoute("Default1");
+        }
     }
 }
