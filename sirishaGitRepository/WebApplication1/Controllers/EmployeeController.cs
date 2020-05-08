@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-
+using WebApplication1.Models;
 namespace WebApplication1.Controllers
 {
     public class EmployeeController : Controller
@@ -11,7 +11,8 @@ namespace WebApplication1.Controllers
         // GET: Employee
         public ActionResult GetEmployee()
         {
-            return View();
+            Context obj = new Models.Context();
+            return View(obj.GetEmployee());
         }
         public ActionResult Index()
         {
