@@ -28,7 +28,19 @@ namespace WebApplication1.Models
                 obj.EmpSalary = Convert.ToInt32(dr[2]);
                 listobj.Add(obj);
             }
+            con.Close();
             return listobj;
+        }
+
+        public int SaveEmployee(Employee empobj)
+        {
+            SqlCommand cmd = new SqlCommand("spr_InsertEmployeeDetails", con);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@empname", empobj.EmpName);
+            cmd.Parameters.AddWithValue("@empsalary", empobj.EmpSalary);
+            int result=cmd.ExecuteNonQuery();
+            return result;
         }
     }
 }

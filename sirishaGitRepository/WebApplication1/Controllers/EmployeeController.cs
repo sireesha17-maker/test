@@ -9,14 +9,35 @@ namespace WebApplication1.Controllers
     public class EmployeeController : Controller
     {
         // GET: Employee
+        Context obj = new Context();
+
         public ActionResult GetEmployee()
         {
-            Context obj = new Models.Context();
             return View(obj.GetEmployee());
         }
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpGet]
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Employee empobj)
+        {
+            int i=obj.SaveEmployee(empobj);
+            if (i > 0)
+            {
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(empobj);
+            }
         }
     }
 }
