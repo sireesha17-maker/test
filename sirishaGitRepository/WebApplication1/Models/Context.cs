@@ -10,7 +10,7 @@ namespace WebApplication1.Models
     {
         SqlConnection con = new SqlConnection("Data Source=AZAM-PC\\SQLEXPRESS;Initial Catalog=Employee;Integrated Security=true");
 
-         public List<Employee> GetEmployee()
+        public List<Employee> GetEmployee()
         {
             List<Employee> listobj = new List<Employee>();
 
@@ -39,7 +39,54 @@ namespace WebApplication1.Models
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.AddWithValue("@empname", empobj.EmpName);
             cmd.Parameters.AddWithValue("@empsalary", empobj.EmpSalary);
-            int result=cmd.ExecuteNonQuery();
+            int result = cmd.ExecuteNonQuery();
+            return result;
+        }
+
+        public Employee GetEmployeeById(int? EmpId)
+        {
+            Employee obj = new Employee();
+            SqlCommand cmd = new SqlCommand("spr_getEmployeeDetailsbyId", con);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@empid", EmpId);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            foreach (DataRow dr in dt.Rows)
+            {
+
+                obj.EmpId = Convert.ToInt32(dr[0]);
+                obj.EmpName = Convert.ToString(dr[1]);
+                obj.EmpSalary = Convert.ToInt32(dr[2]);
+
+            }
+            con.Close();
+            return obj;
+        }
+
+
+
+        public int UpdateEmployee(Employee empobj)
+        {
+            SqlCommand cmd = new SqlCommand("spr_updateEmployeeDetails", con);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@empid", empobj.EmpId);
+            cmd.Parameters.AddWithValue("@empname", empobj.EmpName);
+            cmd.Parameters.AddWithValue("@empsalary", empobj.EmpSalary);
+            int result = cmd.ExecuteNonQuery();
+            return result;
+        }
+
+        
+             public int DeleteEmployeeById(int? id)
+        {
+            SqlCommand cmd = new SqlCommand("spr_deleteEmployeeDetails", con);
+            con.Open();
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@empid", id);
+            int result = cmd.ExecuteNonQuery();
             return result;
         }
     }

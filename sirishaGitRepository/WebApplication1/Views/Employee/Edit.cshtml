@@ -1,0 +1,17 @@
+﻿@model WebApplication1.Models.Employee
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+ 
+<form action="~/Employee/Edit" method="post">
+    <input type="hidden" name="EmpId" value="@Model.EmpId" />
+    <label>EmpName</label>
+    <input type="text" id="txtEmpName" name="EmpName" value="@Model.EmpName" /><br />
+    <label>EmpSalary</label>
+    <input type="text" id="txtEmpSalary" name="EmpSalary" value="@Model.EmpSalary" /><br />
+    <input type="submit" value="Submit" class="btn-success" />
+</form>
